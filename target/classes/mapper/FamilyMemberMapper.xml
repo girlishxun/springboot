@@ -1,0 +1,47 @@
+<!-- family_member.xml -->
+<mapper namespace="com.example.dao.FamilyMemberMapper">
+    <resultMap id="FamilyMemberResultMap" type="com.example.model.FamilyMember">
+        <id property="memberId" column="member_id" />
+        <result property="medicalCard" column="medical_card" />
+        <result property="name" column="name" />
+        <result property="gender" column="gender" />
+        <result property="birthdate" column="birthdate" />
+        <result property="phone" column="phone" />
+        <result property="allergyHistory" column="allergy_history" />
+        <result property="drugIntolerance" column="drug_intolerance" />
+    </resultMap>
+
+    <!-- 添加家庭成员 -->
+    <insert id="addFamilyMember" parameterType="com.example.model.FamilyMember">
+        INSERT INTO FamilyMember (medical_card, name, gender, birthdate, phone, allergy_history, drug_intolerance)
+        VALUES (#{medicalCard}, #{name}, #{gender}, #{birthdate}, #{phone}, #{allergyHistory}, #{drugIntolerance})
+    </insert>
+
+    <!-- 修改家庭成员信息 -->
+    <update id="updateFamilyMember" parameterType="com.example.model.FamilyMember">
+        UPDATE FamilyMember
+        SET name = #{name}, gender = #{gender}, birthdate = #{birthdate}, phone = #{phone},
+        allergy_history = #{allergyHistory}, drug_intolerance = #{drugIntolerance}
+        WHERE member_id = #{memberId}
+    </update>
+
+    <!-- 删除家庭成员 -->
+    <delete id="deleteFamilyMember" parameterType="int">
+        DELETE FROM FamilyMember WHERE member_id = #{memberId}
+    </delete>
+
+    <!-- 根据就诊卡号查询家庭成员 -->
+    <select id="getFamilyMemberByMedicalCard" parameterType="String" resultMap="FamilyMemberResultMap">
+        SELECT * FROM FamilyMember WHERE medical_card = #{medicalCard}
+    </select>
+
+    <!-- 根据成员ID查询家庭成员 -->
+    <select id="getFamilyMemberById" parameterType="int" resultMap="FamilyMemberResultMap">
+        SELECT * FROM FamilyMember WHERE member_id = #{memberId}
+    </select>
+
+    <!-- 查询所有家庭成员 -->
+    <select id="getAllFamilyMembers" resultMap="FamilyMemberResultMap">
+        SELECT * FROM FamilyMember
+    </select>
+</mapper>

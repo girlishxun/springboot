@@ -1,0 +1,40 @@
+<!-- appointment.xml -->
+<mapper namespace="com.example.dao.AppointmentMapper">
+    <resultMap id="AppointmentResultMap" type="com.example.model.Appointment">
+        <id property="appointmentId" column="appointment_id" />
+        <result property="medicalCard" column="medical_card" />
+        <result property="doctorId" column="doctor_id" />
+        <result property="appointmentProject" column="appointment_project" />
+        <result property="appointmentTime" column="appointment_time" />
+        <result property="appointmentStatus" column="appointment_status" />
+    </resultMap>
+
+    <!-- 添加预约信息 -->
+    <insert id="addAppointment" parameterType="com.example.model.Appointment">
+        INSERT INTO Appointment (medical_card, doctor_id, appointment_project, appointment_time, appointment_status)
+        VALUES (#{medicalCard}, #{doctorId}, #{appointmentProject}, #{appointmentTime}, #{appointmentStatus})
+    </insert>
+
+    <!-- 修改预约信息 -->
+    <update id="updateAppointment" parameterType="com.example.model.Appointment">
+        UPDATE Appointment
+        SET medical_card = #{medicalCard}, doctor_id = #{doctorId}, appointment_project = #{appointmentProject},
+        appointment_time = #{appointmentTime}, appointment_status = #{appointmentStatus}
+        WHERE appointment_id = #{appointmentId}
+    </update>
+
+    <!-- 删除预约信息 -->
+    <delete id="deleteAppointment" parameterType="int">
+        DELETE FROM Appointment WHERE appointment_id = #{appointmentId}
+    </delete>
+
+    <!-- 根据预约ID查询预约信息 -->
+    <select id="getAppointmentById" parameterType="int" resultMap="AppointmentResultMap">
+        SELECT * FROM Appointment WHERE appointment_id = #{appointmentId}
+    </select>
+
+    <!-- 查询所有预约信息 -->
+    <select id="getAllAppointments" resultMap="AppointmentResultMap">
+        SELECT * FROM Appointment
+    </select>
+</mapper>

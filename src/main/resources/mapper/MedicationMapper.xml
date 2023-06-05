@@ -1,0 +1,36 @@
+<!-- medication.xml -->
+<mapper namespace="com.example.dao.MedicationMapper">
+    <resultMap id="MedicationResultMap" type="com.example.model.Medication">
+        <id property="medicationId" column="medication_id" />
+        <result property="name" column="name" />
+        <result property="cautions" column="cautions" />
+    </resultMap>
+
+    <!-- 添加药品信息 -->
+    <insert id="addMedication" parameterType="com.example.model.Medication">
+        INSERT INTO Medication (name, cautions)
+        VALUES (#{name}, #{cautions})
+    </insert>
+
+    <!-- 修改药品信息 -->
+    <update id="updateMedication" parameterType="com.example.model.Medication">
+        UPDATE Medication
+        SET name = #{name}, cautions = #{cautions}
+        WHERE medication_id = #{medicationId}
+    </update>
+
+    <!-- 删除药品信息 -->
+    <delete id="deleteMedication" parameterType="int">
+        DELETE FROM Medication WHERE medication_id = #{medicationId}
+    </delete>
+
+    <!-- 根据药品ID查询药品信息 -->
+    <select id="getMedicationById" parameterType="int" resultMap="MedicationResultMap">
+        SELECT * FROM Medication WHERE medication_id = #{medicationId}
+    </select>
+
+    <!-- 查询所有药品信息 -->
+    <select id="getAllMedications" resultMap="MedicationResultMap">
+        SELECT * FROM Medication
+    </select>
+</mapper>

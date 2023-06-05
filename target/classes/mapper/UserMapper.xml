@@ -1,0 +1,11 @@
+<!-- user.xml -->
+<mapper namespace="com.example.dao.UserMapper">
+    <resultMap id="UserResultMap" type="com.example.model.User">
+        <id property="userId" column="user_id" />
+        <result property="username" column="username" />
+        <result property="password" column="password" />
+        <result property="permissionId" column="permission_id" />
+    </resultMap>
+
+    <!-- Add more SQL statements as needed -->
+</mapper>

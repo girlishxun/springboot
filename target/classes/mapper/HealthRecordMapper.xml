@@ -1,0 +1,45 @@
+<!-- health_record.xml -->
+<mapper namespace="com.example.dao.HealthRecordMapper">
+    <resultMap id="HealthRecordResultMap" type="com.example.model.HealthRecord">
+        <id property="recordId" column="record_id" />
+        <result property="medicalCard" column="medical_card" />
+        <result property="heartRate" column="heart_rate" />
+        <result property="bloodPressure" column="blood_pressure" />
+        <result property="weight" column="weight" />
+        <result property="temperature" column="temperature" />
+        <result property="other" column="other" />
+        <result property="visitTime" column="visit_time" />
+        <result property="diagnosisResult" column="diagnosis_result" />
+        <result property="visitStatus" column="visit_status" />
+    </resultMap>
+
+    <!-- 添加个人健康教据信息 -->
+    <insert id="addHealthRecord" parameterType="com.example.model.HealthRecord">
+        INSERT INTO HealthRecord (medical_card, heart_rate, blood_pressure, weight, temperature, other, visit_time, diagnosis_result, visit_status)
+        VALUES (#{medicalCard}, #{heartRate}, #{bloodPressure}, #{weight}, #{temperature}, #{other}, #{visitTime}, #{diagnosisResult}, #{visitStatus})
+    </insert>
+
+    <!-- 修改个人健康教据信息 -->
+    <update id="updateHealthRecord" parameterType="com.example.model.HealthRecord">
+        UPDATE HealthRecord
+        SET medical_card = #{medicalCard}, heart_rate = #{heartRate}, blood_pressure = #{bloodPressure},
+        weight = #{weight}, temperature = #{temperature}, other = #{other}, visit_time = #{visitTime},
+        diagnosis_result = #{diagnosisResult}, visit_status = #{visitStatus}
+        WHERE record_id = #{recordId}
+    </update>
+
+    <!-- 删除个人健康教据信息 -->
+    <delete id="deleteHealthRecord" parameterType="int">
+        DELETE FROM HealthRecord WHERE record_id = #{recordId}
+    </delete>
+
+    <!-- 根据健康教据ID查询个人健康教据信息 -->
+    <select id="getHealthRecordById" parameterType="int" resultMap="HealthRecordResultMap">
+        SELECT * FROM HealthRecord WHERE record_id = #{recordId}
+    </select>
+
+    <!-- 查询所有个人健康教据信息 -->
+    <select id="getAllHealthRecords" resultMap="HealthRecordResultMap">
+        SELECT * FROM HealthRecord
+    </select>
+</mapper>

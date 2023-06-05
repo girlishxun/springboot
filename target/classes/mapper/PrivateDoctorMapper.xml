@@ -1,0 +1,40 @@
+<!-- private_doctor.xml -->
+<mapper namespace="com.example.dao.PrivateDoctorMapper">
+    <resultMap id="PrivateDoctorResultMap" type="com.example.model.PrivateDoctor">
+        <id property="doctorId" column="doctor_id" />
+        <result property="name" column="name" />
+        <result property="hospital" column="hospital" />
+        <result property="department" column="department" />
+        <result property="appointmentPhone" column="appointment_phone" />
+        <result property="appointmentWechat" column="appointment_wechat" />
+    </resultMap>
+
+    <!-- 添加私人医生 -->
+    <insert id="addPrivateDoctor" parameterType="com.example.model.PrivateDoctor">
+        INSERT INTO PrivateDoctor (name, hospital, department, appointment_phone, appointment_wechat)
+        VALUES (#{name}, #{hospital}, #{department}, #{appointmentPhone}, #{appointmentWechat})
+    </insert>
+
+    <!-- 修改私人医生信息 -->
+    <update id="updatePrivateDoctor" parameterType="com.example.model.PrivateDoctor">
+        UPDATE PrivateDoctor
+        SET name = #{name}, hospital = #{hospital}, department = #{department},
+        appointment_phone = #{appointmentPhone}, appointment_wechat = #{appointmentWechat}
+        WHERE doctor_id = #{doctorId}
+    </update>
+
+    <!-- 删除私人医生 -->
+    <delete id="deletePrivateDoctor" parameterType="int">
+        DELETE FROM PrivateDoctor WHERE doctor_id = #{doctorId}
+    </delete>
+
+    <!-- 根据医生ID查询私人医生 -->
+    <select id="getPrivateDoctorById" parameterType="int" resultMap="PrivateDoctorResultMap">
+        SELECT * FROM PrivateDoctor WHERE doctor_id = #{doctorId}
+    </select>
+
+    <!-- 查询所有私人医生 -->
+    <select id="getAllPrivateDoctors" resultMap="PrivateDoctorResultMap">
+        SELECT * FROM PrivateDoctor
+    </select>
+</mapper>

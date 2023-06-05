@@ -1,0 +1,10 @@
+<!-- user_permission.xml -->
+<mapper namespace="com.example.dao.UserPermissionMapper">
+    <resultMap id="UserPermissionResultMap" type="com.example.model.UserPermission">
+        <id property="userId" column="user_id" />
+        <result property="role" column="role" />
+        <result property="userType" column="user_type" />
+    </resultMap>
+
+    <!-- Add more SQL statements as needed -->
+</mapper>
